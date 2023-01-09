@@ -1,7 +1,6 @@
 import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
-import HomePage from "../pages/home/HomePage";
 import { RouteType } from "./config";
-import DefaultPage from "../pages/dashboard/DefaultPage";
+import MapPage from "../pages/dashboard/MapPage";
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
 import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
@@ -17,8 +16,8 @@ import ButtonPage from "../pages/component/ButtonPage";
 const appRoutes: RouteType[] = [
     {
         index: true,
-        element: <HomePage />,
-        state: "home"
+        element: <MapPage />,
+        state: "dashboard.map"
     },
     {
         path: "/dashboard",
@@ -35,11 +34,11 @@ const appRoutes: RouteType[] = [
                 state: "dashboard.index"
             },
             {
-                path: "/dashboard/default",
-                element: <DefaultPage />,
-                state: "dashboard.default",
+                path: "/dashboard/map",
+                element: <MapPage />,
+                state: "dashboard.map",
                 sidebarProps: {
-                    displayText: "Default"
+                    displayText: "Map"
                 },
             },
             {

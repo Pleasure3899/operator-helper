@@ -24,7 +24,8 @@ const MainLayout = () => {
                     flexGrow: 1,
                     p: 3,
                     width: `calc(100% - ${sizeConfigs.sidebar.width})`,
-                    minHeight: "100vh",
+                    height: "500px",
+                    padding: 0,
                     backgroundColor: colorConfigs.mainBg
                 }}
             >

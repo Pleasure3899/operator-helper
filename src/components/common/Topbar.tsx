@@ -16,7 +16,7 @@ const Topbar = () => {
         >
             <Toolbar>
                 <Typography variant="h6">
-                    React sidebar with dropdown
+                    Інформаційна технологія підтримки діяльності оператора пульта спостереження за складними об'єктами
                 </Typography>
             </Toolbar>
         </AppBar>
