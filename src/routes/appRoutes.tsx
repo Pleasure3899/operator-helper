@@ -9,7 +9,7 @@ import ComponentPageLayout from "../pages/component/ComponentPageLayout";
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import AlertPage from "../pages/component/AlertPage";
+import AlertPage from "../pages/component/ManagePage";
 import ButtonPage from "../pages/component/ButtonPage";
 
 
@@ -69,11 +69,11 @@ const appRoutes: RouteType[] = [
         },
         child: [
             {
-                path: "/component/alert",
+                path: "/component/manage",
                 element: <AlertPage />,
-                state: "component.alert",
+                state: "component.manage",
                 sidebarProps: {
-                    displayText: "Alert"
+                    displayText: "Manage"
                 },
             },
             {
