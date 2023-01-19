@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
 import '../../styles/App.css'
 import PatrolMarker from "../../components/formap/PatrolMarker";
 import OptimalRoute from "../../components/formap/OptimalRoute";
+import Objects from "../../storage/Objects.json";
+ 
 
 const MapPage = () => {
 
@@ -14,6 +16,7 @@ const MapPage = () => {
 
   const mapZoom = 13;
   const scrollWheelZoom = true;
+
 
   const [patrols, setPatrol] = useState([
     { id: 1, position: ['50.91027', '34.82542'] },
@@ -28,7 +31,9 @@ const MapPage = () => {
     { id: 2, patrolId: 3, objectId: 5, original: ['34.80501', '50.94148'], destination: ['34.75893', '50.93435'], distance: "5184"},
   ])
   
-  const [objects, setObject] = useState([
+  const [objects, setObject] = useState(
+    Objects.objects
+    /*
     { id: 1, coordinates: ['50.90025', '34.81053'] },
     { id: 2, coordinates: ['50.90279', '34.84015'] },
     { id: 3, coordinates: ['50.91324', '34.78945'] },
@@ -45,7 +50,11 @@ const MapPage = () => {
     { id: 14, coordinates: ['50.89825', '34.78188'] },
     { id: 15, coordinates: ['50.91771', '34.81587'] },
     { id: 16, coordinates: ['50.91134', '34.80507'] },
-  ])
+    */
+
+  )
+
+  console.log(Objects.objects[0].coordinates[0]);
 
   const [dummyPatrol, setDummyPatrol] = useState(patrols[0]);
   const [dummyObject, setDummyObject] = useState(objects[0]);

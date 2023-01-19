@@ -1,9 +1,9 @@
 import React,{ Component } from 'react'
-
+import './NewObjectForm.css'
 class NewObjectForm extends Component{
 constructor(props){
 	super(props)
-	this.state = { street:'', house:'', section:null, floor:'', apartment:'', latitude:'', longitude:''}
+	this.state = { street:'', house:'', section:'', floor:'', apartment:'', latitude:'', longitude:'' }
 	this.handleChange = this.handleChange.bind(this)
 	this.handleSubmit = this.handleSubmit.bind(this)
 }
@@ -33,9 +33,10 @@ handleChange(event){
 // in react component itself as state
 render(){
 	return(
-	<form class="newobjectform" onSubmit={this.handleSubmit}>
+	<form className="newobjectform" onSubmit={this.handleSubmit}>
 		<div>
-		<label htmlFor='street'>Вулиця</label>
+		<label htmlFor='street'>Вулиця:</label>
+		<br/>
 		<input
 			name='street'
 			placeholder='Вкажіть назву вулиці'
@@ -44,7 +45,8 @@ render(){
 		/>
 		</div>
 		<div>
-		<label htmlFor='house'>Будинок</label>
+		<label htmlFor='house'>Будинок:</label>
+		<br/>
 		<input
 			name='house'
 			placeholder='Вкажіть номер будинку'
@@ -53,7 +55,8 @@ render(){
 		/>
 		</div>
 		<div>
-		<label htmlFor='section'>Під'їзд</label>
+		<label htmlFor='section'>Під'їзд:</label>
+		<br/>
 		<input
 			name='section'
 			placeholder="Вкажіть номер під'їзду (може бути порожнім)"
@@ -62,7 +65,8 @@ render(){
 		/>
 		</div>
 		<div>
-		<label htmlFor='floor'>Поверх</label>
+		<label htmlFor='floor'>Поверх:</label>
+		<br/>
 		<input
 			name='floor'
 			placeholder='Вкажіть поверх (може бути порожнім)'
@@ -71,7 +75,8 @@ render(){
 		/>
 		</div>
 		<div>
-		<label htmlFor='apartment'>Квартира</label>
+		<label htmlFor='apartment'>Квартира:</label>
+		<br/>
 		<input
 			name='apartment'
 			placeholder='Вкажіть номер квартири (може бути порожнім)'
@@ -80,25 +85,29 @@ render(){
 		/>
 		</div>
         <div>
-		<label htmlFor='latitude'>Широта</label>
+		<label htmlFor='latitude'>Широта:</label>
+		<br/>
 		<input
 			name='latitude'
 			placeholder='Вкажіть широту'
 			value={this.state.latitude}
 			onChange={this.handleChange}
+			//pattern="/^[\d,.]*$/"
 		/>
 		</div>
         <div>
-		<label htmlFor='longitude'>Довгота</label>
+		<label htmlFor='longitude'>Довгота:</label>
+		<br/>
 		<input
 			name='longitude'
 			placeholder='Вкажіть довготу'
 			value={this.state.longitude}
 			onChange={this.handleChange}
+			//pattern="/^[\d,.]*$/"
 		/>
 		</div>
 		<div>
-		<button>Create Account</button>
+		<button>Додати</button>
 		</div>
 	</form>
 	)
