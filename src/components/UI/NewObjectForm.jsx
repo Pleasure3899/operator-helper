@@ -1,47 +1,29 @@
-import React,{ Component } from 'react'
+import React, {useContext, useState} from 'react';
 import './NewObjectForm.css'
-class NewObjectForm extends Component{
-constructor(props){
-	super(props)
-	this.state = { street:'', house:'', section:'', floor:'', apartment:'', latitude:'', longitude:'' }
-	this.handleChange = this.handleChange.bind(this)
-	this.handleSubmit = this.handleSubmit.bind(this)
-}
-
-// Form submitting logic, prevent default page refresh
-handleSubmit(event){
-	const { street, house, section, floor, apartment, latitude, longitude} = this.state
-	event.preventDefault()
+import { ObjectsContext } from '../../context';
+import getLastValue
+ from '../common/getLastId';
+const NewObjectForm = () => {
+	const [object, setObject] = useState({street:'', house:'', section:'', floor:'', apartment:'', latitude:'', longitude:''})
+	const {objects, setObjects} = useContext(ObjectsContext)
+	const addNewObject = (e) => {
+        e.preventDefault()
+		var lastId = getLastValue(objects) + 1
+		var newObject = { id: lastId,  "coordinates": [object.latitude,object.longitude]}
+		setObjects([...objects, newObject])
+        setObject({street:'', house:'', section:'', floor:'', apartment:'', latitude:'', longitude:''})
+    }
 	
-    //EXECUTION
-}
-
-// Method causes to store all the values of the
-// input field in react state single method handle
-// input changes of all the input field using ES6
-// javascript feature computed property names
-handleChange(event){
-	this.setState({
-	// Computed property names
-	// keys of the objects are computed dynamically
-	[event.target.name] : event.target.value
-	})
-}
-
-// Return a controlled form i.e. values of the
-// input field not stored in DOM values are exist
-// in react component itself as state
-render(){
 	return(
-	<form className="newobjectform" onSubmit={this.handleSubmit}>
+	<form className="newobjectform">
 		<div>
 		<label htmlFor='street'>Вулиця:</label>
 		<br/>
 		<input
 			name='street'
 			placeholder='Вкажіть назву вулиці'
-			value = {this.state.street}
-			onChange={this.handleChange}
+			value = {object.street}
+			onChange={e => setObject({...object, street: e.target.value})}
 		/>
 		</div>
 		<div>
@@ -50,8 +32,8 @@ render(){
 		<input
 			name='house'
 			placeholder='Вкажіть номер будинку'
-			value={this.state.house}
-			onChange={this.handleChange}
+			value={object.house}
+			onChange={e => setObject({...object, house: e.target.value})}
 		/>
 		</div>
 		<div>
@@ -60,8 +42,8 @@ render(){
 		<input
 			name='section'
 			placeholder="Вкажіть номер під'їзду (може бути порожнім)"
-			value={this.state.section}
-			onChange={this.handleChange}
+			value={object.section}
+			onChange={e => setObject({...object, section: e.target.value})}
 		/>
 		</div>
 		<div>
@@ -70,8 +52,8 @@ render(){
 		<input
 			name='floor'
 			placeholder='Вкажіть поверх (може бути порожнім)'
-			value={this.state.floor}
-			onChange={this.handleChange}
+			value={object.floor}
+			onChange={e => setObject({...object, floor: e.target.value})}
 		/>
 		</div>
 		<div>
@@ -80,8 +62,8 @@ render(){
 		<input
 			name='apartment'
 			placeholder='Вкажіть номер квартири (може бути порожнім)'
-			value={this.state.apartment}
-			onChange={this.handleChange}
+			value={object.apartment}
+			onChange={e => setObject({...object, apartment: e.target.value})}
 		/>
 		</div>
         <div>
@@ -90,8 +72,8 @@ render(){
 		<input
 			name='latitude'
 			placeholder='Вкажіть широту'
-			value={this.state.latitude}
-			onChange={this.handleChange}
+			value={object.latitude}
+			onChange={e => setObject({...object, latitude: e.target.value})}
 			//pattern="/^[\d,.]*$/"
 		/>
 		</div>
@@ -101,17 +83,17 @@ render(){
 		<input
 			name='longitude'
 			placeholder='Вкажіть довготу'
-			value={this.state.longitude}
-			onChange={this.handleChange}
+			value={object.longitude}
+			onChange={e => setObject({...object, longitude: e.target.value})}
 			//pattern="/^[\d,.]*$/"
 		/>
 		</div>
 		<div>
-		<button>Додати</button>
+		<button onClick={addNewObject}>Додати</button>
 		</div>
 	</form>
-	)
-}
-}
+	);
+};
+
 
 export default NewObjectForm

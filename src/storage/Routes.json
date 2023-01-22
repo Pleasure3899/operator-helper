@@ -1,0 +1,32 @@
+{
+  "routes": [
+    {
+    "id": 1,
+    "patrolId": 2,
+    "objectId": 1,
+    "original": [
+      "34.78348",
+      "50.90695"
+    ],
+    "destination": [
+      "34.81053",
+      "50.90025"
+    ],
+    "distance": "3051"
+  },
+  {
+    "id": 2,
+    "patrolId": 3,
+    "objectId": 5,
+    "original": [
+      "34.80501",
+      "50.94148"
+    ],
+    "destination": [
+      "34.75893",
+      "50.93435"
+    ],
+    "distance": "5184"
+  }
+  ]
+}
