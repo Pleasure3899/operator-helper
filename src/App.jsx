@@ -7,12 +7,12 @@ import React, {useState} from 'react';
 
 function App() {
 
-  const [objects, setObjects] = useState(Objects.objects)
+  //const [objects, setObjects] = useState(Objects.objects)
 
   return (
     <ObjectsContext.Provider value={{
-      objects,
-      setObjects
+      //objects,
+      //setObjects
     }}>
       <BrowserRouter>
       <Routes>
