@@ -1,9 +1,13 @@
-import React from 'react'
 import NewObjectForm from '../../components/UI/NewObjectForm';
+import ObjectsList from '../../components/UI/ObjectsList';
 
 const ManagePage = () => {
+
     return (
-        <NewObjectForm/>
+        <div className="objectspage">
+            <NewObjectForm />
+            <ObjectsList />
+        </div>
     );
 };
 

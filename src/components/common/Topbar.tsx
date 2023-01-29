@@ -11,11 +11,12 @@ const Topbar = () => {
                 ml: sizeConfigs.sidebar.width,
                 boxShadow: "unset",
                 backgroundColor: colorConfigs.topbar.bg,
-                color: colorConfigs.topbar.color
+                color: colorConfigs.topbar.color,
+                alignItems:"center"
             }}
         >
             <Toolbar>
-                <Typography variant="h6">
+                <Typography variant="h6" align="right">
                     Інформаційна технологія підтримки діяльності оператора пульта спостереження за складними об'єктами
                 </Typography>
             </Toolbar>
