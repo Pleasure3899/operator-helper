@@ -2,10 +2,10 @@ import { Outlet } from 'react-router-dom';
 
 type Props = {};
 
-const ComponentPageLayout = (props: Props) => {
+const ManagePageLayout = (props: Props) => {
     return (
         <><Outlet /></>
     );
 };
 
-export default ComponentPageLayout;
+export default ManagePageLayout;

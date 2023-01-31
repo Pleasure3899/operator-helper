@@ -1,7 +1,7 @@
 import NewObjectForm from '../../components/UI/NewObjectForm';
 import ObjectsList from '../../components/UI/ObjectsList';
 
-const ManagePage = () => {
+const ObjectPage = () => {
 
     return (
         <div className="objectspage">
@@ -11,4 +11,4 @@ const ManagePage = () => {
     );
 };
 
-export default ManagePage;
+export default ObjectPage;

@@ -5,12 +5,12 @@ import DashboardIndex from "../pages/dashboard/DashboardIndex";
 import ChangelogPage from "../pages/changelog/ChangelogPage";
 import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
-import ComponentPageLayout from "../pages/component/ComponentPageLayout";
+import ManagePageLayout from "../pages/component/ManagePageLayout";
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
-import AlertPage from "../pages/component/ManagePage";
-import ButtonPage from "../pages/component/ButtonPage";
+import ObjectsPage from "../pages/component/ObjectsPage";
+import PatrolsPage from "../pages/component/PatrolsPage";
 
 
 const appRoutes: RouteType[] = [
@@ -24,7 +24,7 @@ const appRoutes: RouteType[] = [
         element: <DashboardPageLayout />,
         state: "dashboard",
         sidebarProps: {
-            displayText: "Dashboard",
+            displayText: "Компоненти",
             icon: <DashboardOutlinedIcon />
         },
         child: [
@@ -38,7 +38,7 @@ const appRoutes: RouteType[] = [
                 element: <MapPage />,
                 state: "dashboard.map",
                 sidebarProps: {
-                    displayText: "Map"
+                    displayText: "Мапа"
                 },
             },
             {
@@ -60,28 +60,28 @@ const appRoutes: RouteType[] = [
         ]
     },
     {
-        path: "/component",
-        element: <ComponentPageLayout />,
-        state: "component",
+        path: "/manage",
+        element: <ManagePageLayout />,
+        state: "manage",
         sidebarProps: {
-            displayText: "Components",
+            displayText: "Управління",
             icon: <AppsOutlinedIcon />
         },
         child: [
             {
-                path: "/component/manage",
-                element: <AlertPage />,
-                state: "component.manage",
+                path: "/manage/objects",
+                element: <ObjectsPage />,
+                state: "manage.objects",
                 sidebarProps: {
-                    displayText: "Manage"
+                    displayText: "Об'єкти"
                 },
             },
             {
-                path: "/component/button",
-                element: <ButtonPage />,
-                state: "component.button",
+                path: "/manage/patrols",
+                element: <PatrolsPage />,
+                state: "manage.patrols",
                 sidebarProps: {
-                    displayText: "Button"
+                    displayText: "Бригади"
                 }
             }
         ]
