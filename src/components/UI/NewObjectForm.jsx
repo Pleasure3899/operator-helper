@@ -23,16 +23,16 @@ const NewObjectForm = () => {
 			}
 		};
 		fetchAllObjects();
-	}, []);
+	}, [BECKEND_URL]);
 
 	const addNewObject = async (e) => {
 		e.preventDefault()
 		var lastId = getLastId(objects) + 1
 		var newObject = { id: lastId, latitude: object.latitude, longitude: object.longitude }
 		try {
-			const resp = await axios.post(BECKEND_URL + "/objects", newObject);
-			if (resp.data.errno) {
-				errorNotify(resp.data.sqlMessage);
+			const response = await axios.post(BECKEND_URL + "/objects", newObject);
+			if (response.data.errno) {
+				errorNotify(response.data.sqlMessage);
 			} else {
 				sucessNotify();
 				setObjects([...objects, newObject])
@@ -49,14 +49,14 @@ const NewObjectForm = () => {
 	}
 
 	return (
-		<form className="newobjectform">
+		<form onSubmit={addNewObject} className="newobjectform">
+			<Toaster toastOptions={{
+				style: {
+					background: '#fff6df',
+					color: '#233044',
+				},
+			}} />
 			<div>
-				<Toaster toastOptions={{
-					style: {
-						background: '#fff6df',
-						color: '#233044',
-					},
-				}} />
 				<label htmlFor='street'>Вулиця:</label>
 				<br />
 				<input
@@ -129,7 +129,7 @@ const NewObjectForm = () => {
 				/>
 			</div>
 			<div>
-				<button onClick={addNewObject}>Додати</button>
+				<button type="submit">Додати</button>
 				<button onClick={resetFields}>Очистити</button>
 			</div>
 		</form>
