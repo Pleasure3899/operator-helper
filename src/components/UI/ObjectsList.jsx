@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/ObjectsList.css'
+import '../../styles/ObjectsPage.css'
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
 import UpdateObjectForm from './UpdateObjectForm';
@@ -13,7 +13,7 @@ const ObjectsList = () => {
     const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
     const [objects, setObjects] = useState([])
     const [objectToUpdate, setObjectToUpdate] = useState([])
-
+    const [clients, setClients] = useState([])
     const [modalOpened, setModalOpened] = useState(false)
 
     const fetchAllObjects = async () => {
@@ -26,9 +26,17 @@ const ObjectsList = () => {
         }
     };
 
+    const fetchAllClients = async () => {
+        const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
+        await axios.get(BECKEND_URL + "/clients").then((response) => {
+            setClients(response.data)
+        }).catch((error) => console.log(error))
+    };
+
     const refreshObjects = (e) => {
         e.preventDefault();
         fetchAllObjects();
+        fetchAllClients();
         sucessNotify();
     }
 
@@ -59,6 +67,7 @@ const ObjectsList = () => {
 
     useEffect(() => {
         fetchAllObjects();
+        fetchAllClients();
     }, [BECKEND_URL]);
 
     return (
@@ -77,15 +86,31 @@ const ObjectsList = () => {
                 <tbody>
                     <tr>
                         <th>Номер</th>
+                        <th>Вулиця</th>
+                        <th>Будинок</th>
+                        <th>Під'їзд</th>
+                        <th>Поверх</th>
+                        <th>Квартира</th>
                         <th>Широта</th>
                         <th>Довгота</th>
+                        <th>Д. тварини</th>
+                        <th>Категорія</th>
+                        <th>Власник</th>
                         <th>Дії</th>
                     </tr>
                     {objects.map(object =>
                         <tr key={object.id}>
                             <td>{object.id}</td>
+                            <td>{object.street}</td>
+                            <td>{object.house}</td>
+                            <td>{object.section}</td>
+                            <td>{object.floor}</td>
+                            <td>{object.apartment}</td>
                             <td>{object.latitude}</td>
                             <td>{object.longitude}</td>
+                            <td>{object.pets ? 'Так' : 'Ні'}</td>
+                            <td>{object.category === 1 ? '1 - Перша' : object.category === 2 ? '2 - Друга' : '3 - Третя'}</td>
+                            <td>{clients.map(client => object.client_id === client.id ? `${client.id} - ${client.surname} ${client.name}` : '' ) }</td>
                             <td>
                                 <button className="update-object" onClick={() => handleUpdateOpen(object)}>Редагувати</button>
                                 <button className="delete-object" onClick={() => handleDelete(object.id)}>Видалити</button>

@@ -5,7 +5,7 @@
     padding: 0;
 }
 
-.leaflet-container {
+.Map .leaflet-container {
     width: 100vw;
     height: 100vh;
 }

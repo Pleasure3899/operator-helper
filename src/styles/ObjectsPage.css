@@ -1,3 +1,12 @@
+.newobjectform {
+    margin: 10px;
+}
+
+.newobjectform input {
+    width: 400px;
+    margin-bottom: 10px;
+}
+
 #objectstable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -67,3 +76,23 @@
 .btn-objects:hover .refresh-icon {
     transform: rotate(360deg) scale(1.2);
 }
+
+.updateobjectform {
+    margin: 10px;
+}
+
+.updateobjectform input {
+    width: 400px;
+    margin-bottom: 10px;
+}
+
+.newobjectcomponent {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .newobjectmap .leaflet-container {
+    width: calc(100vw - 800px);
+    height: 60vh;
+    margin: 20px;
+  }

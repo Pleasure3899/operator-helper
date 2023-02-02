@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Dialog } from "@mui/material"
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
-import '../../styles/UpdateObjectForm.css'
+import '../../styles/ObjectsPage.css'
 
 const sucessNotify = () => toast.success("Оновлено!");
 const errorNotify = (props) => toast.error("Об'єкт не вдалось оновити!\n" + props);
@@ -11,17 +11,23 @@ const UpdateObjectForm = (props) => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 
-	const [object, setObject] = useState({ id: '', street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '' })
+	const [object, setObject] = useState({ id: '', street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: props.objectToUpdate.category, pets: props.objectToUpdate.pets, client_id: props.objectToUpdate.client_id})
+	const [clients, setClients] = useState([])
 
 	useEffect(() => {
 		const fetchObject = async () => {
 			await axios.get(BECKEND_URL + "/objects/" + props.objectToUpdate.id).then((response) => {
-				setObject({ ...object, id: response.data[0].id, latitude: response.data[0].latitude, longitude: response.data[0].longitude })
+				setObject(response.data[0])
+			}).catch((error) => console.log(error))
+		};
+		const fetchAllClients = async () => {
+			await axios.get(BECKEND_URL + "/clients").then((response) => {
+				setClients(response.data)
 			}).catch((error) => console.log(error))
 		};
 		fetchObject();
+		fetchAllClients();
 	}, [props.objectToUpdate.id, BECKEND_URL]);
-
 
 	const cancelUpdate = (e) => {
 		e.preventDefault();
@@ -89,7 +95,7 @@ const UpdateObjectForm = (props) => {
 					<input
 						name='section'
 						placeholder="Вкажіть номер під'їзду (може бути порожнім)"
-						value={object.section}
+						value={object.section == null ? '' : object.section}
 						onChange={e => setObject({ ...object, section: e.target.value })}
 					/>
 				</div>
@@ -99,7 +105,7 @@ const UpdateObjectForm = (props) => {
 					<input
 						name='floor'
 						placeholder='Вкажіть поверх (може бути порожнім)'
-						value={object.floor}
+						value={object.floor == null ? '' : object.floor}
 						onChange={e => setObject({ ...object, floor: e.target.value })}
 					/>
 				</div>
@@ -109,7 +115,7 @@ const UpdateObjectForm = (props) => {
 					<input
 						name='apartment'
 						placeholder='Вкажіть номер квартири (може бути порожнім)'
-						value={object.apartment}
+						value={object.apartment == null ? '' : object.apartment}
 						onChange={e => setObject({ ...object, apartment: e.target.value })}
 					/>
 				</div>
@@ -132,6 +138,44 @@ const UpdateObjectForm = (props) => {
 						placeholder='Вкажіть довготу'
 						onChange={e => setObject({ ...object, longitude: e.target.value })}
 					/>
+				</div>
+				<div>
+					<label htmlFor='category'>Категорія:</label>
+					<br />
+					<select onChange={e => setObject({ ...object, category: e.target.value })} value={object.category}>
+						<option value={1}>
+							Перша
+						</option>
+						<option value={2}>
+							Друга
+						</option>
+						<option value={3}>
+							Третя
+						</option>
+					</select>
+				</div>
+				<div>
+					<label htmlFor='pets'>Домашні тварини:</label>
+					<br />
+					<select onChange={e => setObject({ ...object, pets: e.target.value })} value={object.pets}>
+					<option value={0}>
+						Ні
+					</option>
+					<option value={1}>
+						Так
+					</option>
+				</select>
+				</div>
+				<div>
+					<label htmlFor='client_id'>Власник:</label>
+					<br />
+					<select onChange={e => setObject({ ...object, client_id: e.target.value })} value={object.client_id}> 
+					{clients.map(client =>
+						<option key={client.id} value={client.id}>
+							{client.id} - {client.surname} {client.name}
+						</option>
+          			)}
+				</select>
 				</div>
 				<div>
 					<button type="submit">Оновити</button>

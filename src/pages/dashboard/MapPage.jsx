@@ -3,7 +3,6 @@ import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
 import '../../styles/App.css'
 import PatrolMarker from "../../components/formap/PatrolMarker";
 import OptimalRoute from "../../components/formap/OptimalRoute";
-//import Objects from "../../storage/Objects.json";
 import Patrols from "../../storage/Patrols.json";
 import Routes from "../../storage/Routes.json";
 import { ObjectsContext } from '../../context'; 

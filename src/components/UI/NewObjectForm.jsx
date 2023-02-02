@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/NewObjectForm.css'
+import '../../styles/ObjectsPage.css'
 import getLastId from '../common/getLastId';
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
@@ -11,8 +11,8 @@ const NewObjectForm = () => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 	const [objects, setObjects] = useState([])
-	const [object, setObject] = useState({ street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '' })
-
+	const [object, setObject] = useState({ street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: '3', pets: '0', client_id: '' })
+	const [clients, setClients] = useState([])
 	useEffect(() => {
 		const fetchAllObjects = async () => {
 			try {
@@ -22,13 +22,20 @@ const NewObjectForm = () => {
 				console.log(error);
 			}
 		};
+		const fetchAllClients = async () => {
+				await axios.get(BECKEND_URL + "/clients").then((response) => {
+					setClients(response.data)
+					setObject(object => ({...object, client_id: response.data[0].id}))
+				}).catch((error) => console.log(error))
+			};
 		fetchAllObjects();
+		fetchAllClients();
 	}, [BECKEND_URL]);
 
 	const addNewObject = async (e) => {
 		e.preventDefault()
 		var lastId = getLastId(objects) + 1
-		var newObject = { id: lastId, latitude: object.latitude, longitude: object.longitude }
+		var newObject = { id: lastId, street: object.street, house: object.house, section: object.section, floor: object.floor, apartment: object.apartment, latitude: object.latitude, longitude: object.longitude, category: object.category, pets: object.pets, client_id: object.client_id}
 		try {
 			const response = await axios.post(BECKEND_URL + "/objects", newObject);
 			if (response.data.errno) {
@@ -45,7 +52,7 @@ const NewObjectForm = () => {
 
 	const resetFields = (e) => {
 		e.preventDefault();
-		setObject({ street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '' });
+		setObject({...object, street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: '3', pets: '0'});
 	}
 
 	return (
@@ -127,6 +134,44 @@ const NewObjectForm = () => {
 					onChange={e => setObject({ ...object, longitude: e.target.value })}
 				//pattern="/^[\d,.]*$/"
 				/>
+			</div>
+			<div>
+				<label htmlFor='category'>Категорія:</label>
+				<br />
+				<select onChange={e => setObject({ ...object, category: e.target.value })} defaultValue={3}>
+					<option value={1}>
+						Перша
+					</option>
+					<option value={2}>
+						Друга
+					</option>
+					<option value={3}>
+						Третя
+					</option>
+				</select>
+			</div>
+			<div>
+				<label htmlFor='pets'>Домашні тварини:</label>
+				<br />
+				<select onChange={e => setObject({ ...object, pets: e.target.value })} defaultValue={0}>
+					<option value={0}>
+						Ні
+					</option>
+					<option value={1}>
+						Так
+					</option>
+				</select>
+			</div>
+			<div>
+				<label htmlFor='client_id'>Власник:</label>
+				<br />
+				<select > 
+					{clients.map(client =>
+						<option onClick={e => setObject({ ...object, client_id: e.target.value })} key={client.id} value={client.id}>
+							{client.id} - {client.surname} {client.name}
+						</option>
+          			)}
+				</select>
 			</div>
 			<div>
 				<button type="submit">Додати</button>
