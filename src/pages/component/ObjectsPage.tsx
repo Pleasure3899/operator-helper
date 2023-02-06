@@ -1,15 +1,11 @@
-import NewObjectForm from '../../components/UI/NewObjectForm';
-import NewObjectFormMap from '../../components/UI/NewObjectFormMap';
-import ObjectsList from '../../components/UI/ObjectsList';
+import NewObjectForm from '../../components/UI/Objects/NewObjectForm';
+import ObjectsList from '../../components/UI/Objects/ObjectsList';
 
 const ObjectPage = () => {
 
     return (
         <div className="objectspage">
-            <div className="newobjectcomponent">
-                <NewObjectForm />
-                <NewObjectFormMap />
-            </div>
+            <NewObjectForm />
             <ObjectsList />
         </div>
     );

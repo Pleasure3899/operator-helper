@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/ObjectsPage.css'
+import '../../../styles/ObjectsPage.css'
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
 import UpdateObjectForm from './UpdateObjectForm';
@@ -50,7 +50,8 @@ const ObjectsList = () => {
             sucessDelete();
         }
 		} catch (error) {
-		  console.log(error);
+            errorNotify(error);
+		    console.log(error);
 		}
 	  };
 
@@ -79,7 +80,7 @@ const ObjectsList = () => {
                 },
             }} />
             <button onClick={refreshObjects} className="btn-objects">
-                <img className="refresh-icon" alt="" src={require('../../assets/images/refresh-button-image.png')} />
+                <img className="refresh-icon" alt="" src={require('../../../assets/images/refresh-button-image.png')} />
                 Об'єкти
             </button>
             <table id="objectstable">

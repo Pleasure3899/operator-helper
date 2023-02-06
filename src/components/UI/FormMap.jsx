@@ -1,23 +1,23 @@
 import React from 'react'
 import { useRef, useState } from 'react';
 import { MapContainer, TileLayer, Popup, Marker } from 'react-leaflet'
-import { L } from 'leaflet'
 
-const NewObjectFormMap = () => {
+const FormMap = (props) => {
 
     const VISICOM_API_KEY = process.env.REACT_APP_VISICOM_API_KEY;
-    const [center, setCenter] = useState(['50.90698', '34.80194']);
+    const center = ['50.90698', '34.80194']
     const [markerPosition, setMarkerPosition] = useState([]);
     const mapRef = useRef();
     const mapZoom = 13;
     const scrollWheelZoom = true;
 
     return (
-        <div className="newobjectmap">
+        <div className="formmap">
             <MapContainer
                 whenReady={(map) => {
                     map.target.on("click", function (e) {
                         setMarkerPosition([...markerPosition, { lat: e.latlng.lat, lng: e.latlng.lng }]);
+                        props.setCoordinates(e)
                     });
                 }}
                 dragging={scrollWheelZoom}
@@ -44,4 +44,4 @@ const NewObjectFormMap = () => {
     );
 };
 
-export default NewObjectFormMap;
+export default FormMap;

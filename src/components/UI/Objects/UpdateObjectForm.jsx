@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Dialog } from "@mui/material"
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";
-import '../../styles/ObjectsPage.css'
+import '../../../styles/ObjectsPage.css'
 
 const sucessNotify = () => toast.success("Оновлено!");
 const errorNotify = (props) => toast.error("Об'єкт не вдалось оновити!\n" + props);

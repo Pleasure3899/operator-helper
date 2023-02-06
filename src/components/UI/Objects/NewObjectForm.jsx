@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import '../../styles/ObjectsPage.css'
-import getLastId from '../common/getLastId';
+import '../../../styles/ObjectsPage.css'
+import getLastId from '../../common/getLastId';
 import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
+import FormMap from '../FormMap';
 
 const sucessNotify = () => toast.success("Об'єкт успішно додано!");
 const errorNotify = (props) => toast.error("Об'єкт не вдалось додати!\n" + props);
@@ -45,9 +46,13 @@ const NewObjectForm = () => {
 				setObjects([...objects, newObject])
 			}
 		} catch (error) {
-			errorNotify();
+			errorNotify(error);
 			console.log(error);
 		}
+	}
+
+	const setCoordinates = (e) => {
+		setObject(object => ({ ...object, latitude: e.latlng.lat, longitude: e.latlng.lng }));
 	}
 
 	const resetFields = (e) => {
@@ -56,6 +61,7 @@ const NewObjectForm = () => {
 	}
 
 	return (
+		<div className="newobjectcomponent">
 		<form onSubmit={addNewObject} className="newobjectform">
 			<Toaster toastOptions={{
 				style: {
@@ -120,7 +126,7 @@ const NewObjectForm = () => {
 					name='latitude'
 					placeholder='Вкажіть широту'
 					value={object.latitude}
-					onChange={e => setObject({ ...object, latitude: e.target.value })}
+					onChange={e => setObject({ ...object, latitude: e.target.value }) }
 				//pattern="/^[\d,.]*$/"
 				/>
 			</div>
@@ -132,7 +138,6 @@ const NewObjectForm = () => {
 					placeholder='Вкажіть довготу'
 					value={object.longitude}
 					onChange={e => setObject({ ...object, longitude: e.target.value })}
-				//pattern="/^[\d,.]*$/"
 				/>
 			</div>
 			<div>
@@ -178,6 +183,8 @@ const NewObjectForm = () => {
 				<button onClick={resetFields}>Очистити</button>
 			</div>
 		</form>
+		<FormMap setCoordinates={setCoordinates}/>
+		</div>
 	);
 };
 

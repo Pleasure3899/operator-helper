@@ -1,8 +1,11 @@
 import React from 'react'
+import NewPatrolForm from '../../components/UI/Patrols/NewPatrolForm';
 
 const PatrolsPage = () => {
     return (
-        <div>PatrolsPage</div>
+        <div className="patrolspage">
+            <NewPatrolForm />
+        </div>
     );
 };
 
