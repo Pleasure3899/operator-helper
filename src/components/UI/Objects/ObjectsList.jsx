@@ -56,13 +56,13 @@ const ObjectsList = () => {
 	  };
 
       const handleUpdateOpen = (object) => {
-        setObjectToUpdate(object)
-        setModalOpened(true)
+        setObjectToUpdate(object);
+        setModalOpened(true);
 	  };
 
       const handleUpdateClose = () => {
         setModalOpened(false);
-        setObjectToUpdate([])
+        setObjectToUpdate([]);
 	  };
 
 
