@@ -11,6 +11,7 @@ import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBulletedOutlined';
 import ObjectsPage from "../pages/component/ObjectsPage";
 import PatrolsPage from "../pages/component/PatrolsPage";
+import PatrolmenPage from "../pages/component/PatrolmenPage";
 
 
 const appRoutes: RouteType[] = [
@@ -82,6 +83,14 @@ const appRoutes: RouteType[] = [
                 state: "manage.patrols",
                 sidebarProps: {
                     displayText: "Бригади"
+                }
+            },
+            {
+                path: "/manage/patrolmen",
+                element: <PatrolmenPage />,
+                state: "manage.patrolmen",
+                sidebarProps: {
+                    displayText: "Патрульні"
                 }
             }
         ]
