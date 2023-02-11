@@ -22,6 +22,7 @@ const MapPage = () => {
   const scrollWheelZoom = true;
 
   const [objects, setObjects] = useState([])
+  const [patrols, setPatrols] = useState([])
 
   useEffect(() => {
     const fetchAllObjects = async () => {
@@ -32,15 +33,19 @@ const MapPage = () => {
         console.log(error);
       }
     };
+    const fetchAllPatrols = async () => {
+      try {
+        const response = await axios.get(BECKEND_URL+"/patrols");
+        setPatrols(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchAllObjects();
-  }, []);
-
-  const [patrols, setPatrols] = useState(Patrols.patrols)
+    fetchAllPatrols();
+  }, [BECKEND_URL]);
 
   const [checkRoute, setCheckRoutes] = useState(Routes.routes)
-  
-  //const [objects, setObjects] = useState(Objects.objects)
-
 
   return (
     <div className="Map">
@@ -54,7 +59,7 @@ const MapPage = () => {
         />
 
         {patrols.map(patrol =>
-          <PatrolMarker post={patrol} key={patrol.id} />
+        patrol.patrol_is_active !== 0 && <PatrolMarker patrol={patrol} key={patrol.id} />
         )}
 
 
@@ -64,6 +69,7 @@ const MapPage = () => {
 
 
         {objects.map(object =>
+        object.object_is_active !== 0 &&
           <Marker key={object.id} position={latLng(object.latitude, object.longitude)}>
             <Popup>
               ObjectID - {object.id}

@@ -68,7 +68,7 @@ const PatrolmenList = () => {
             }} />
             <button onClick={refreshPatrolmen} className="btn-patrolmen">
                 <img className="refresh-icon" alt="" src={require('../../../assets/images/refresh-button-image.png')} />
-                Бригади
+                Патрульні
             </button>
             <table id="patrolmentable">
                 <tbody>

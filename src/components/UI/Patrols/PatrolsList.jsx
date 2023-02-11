@@ -105,7 +105,7 @@ const PatrolsList = () => {
                             <td>
                                 <button className="update-patrol" onClick={() => handleUpdateOpen(patrol)}>Редагувати</button>
                                 <button className="delete-patrol" onClick={() => handleDelete(patrol.id)}>Видалити</button>
-                                </td>
+                            </td>
                         </tr>
                     )}
                 </tbody>

@@ -11,7 +11,7 @@ const UpdateObjectForm = (props) => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 
-	const [object, setObject] = useState({ id: '', street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: props.objectToUpdate.category, pets: props.objectToUpdate.pets, client_id: props.objectToUpdate.client_id})
+	const [object, setObject] = useState({ id: '', street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: props.objectToUpdate.category, pets: props.objectToUpdate.pets, client_id: props.objectToUpdate.client_id, object_is_active: props.objectToUpdate.object_is_active})
 	const [clients, setClients] = useState([])
 
 	useEffect(() => {
@@ -175,6 +175,18 @@ const UpdateObjectForm = (props) => {
 							{client.id} - {client.surname} {client.name}
 						</option>
           			)}
+				</select>
+				</div>
+				<div>
+					<label htmlFor='object_is_active'>Зробити бригаду активною?</label>
+					<br />
+					<select onChange={e => setObject({ ...object, object_is_active: e.target.value })} value={object.object_is_active}>
+					<option value={0}>
+						Ні
+					</option>
+					<option value={1}>
+						Так
+					</option>
 				</select>
 				</div>
 				<div>

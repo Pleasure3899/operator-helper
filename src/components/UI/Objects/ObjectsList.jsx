@@ -97,6 +97,7 @@ const ObjectsList = () => {
                         <th>Д. тварини</th>
                         <th>Категорія</th>
                         <th>Власник</th>
+                        <th>Активний</th>
                         <th>Дії</th>
                     </tr>
                     {objects.map(object =>
@@ -112,6 +113,7 @@ const ObjectsList = () => {
                             <td>{object.pets ? 'Так' : 'Ні'}</td>
                             <td>{object.category === 1 ? '1 - Перша' : object.category === 2 ? '2 - Друга' : '3 - Третя'}</td>
                             <td>{clients.map(client => object.client_id === client.id ? `${client.id} - ${client.surname} ${client.name}` : '' ) }</td>
+                            <td>{object.object_is_active ? 'Так' : 'Ні'}</td>
                             <td>
                                 <button className="update-object" onClick={() => handleUpdateOpen(object)}>Редагувати</button>
                                 <button className="delete-object" onClick={() => handleDelete(object.id)}>Видалити</button>

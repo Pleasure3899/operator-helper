@@ -1,5 +1,6 @@
 import React from 'react';
 import { Popup, CircleMarker} from 'react-leaflet'
+import { latLng } from 'leaflet';
 
 const PatrolMarker = (props) => {
     
@@ -7,8 +8,8 @@ const PatrolMarker = (props) => {
     const markerColor = "red";
 
     return (
-        <CircleMarker center={props.post.position} radius={markerRadius} color={markerColor}>
-          <Popup>PatrolID - {props.post.id}</Popup>
+        <CircleMarker center={latLng(props.patrol.latitude, props.patrol.longitude)} radius={markerRadius} color={markerColor}>
+          <Popup>PatrolID - {props.patrol.id}</Popup>
         </CircleMarker>
     );
 };

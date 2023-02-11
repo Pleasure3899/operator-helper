@@ -12,7 +12,7 @@ const NewObjectForm = () => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 	const [objects, setObjects] = useState([])
-	const [object, setObject] = useState({ street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: '3', pets: '0', client_id: '' })
+	const [object, setObject] = useState({ street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: '3', pets: '0', client_id: '', object_is_active: '0' })
 	const [clients, setClients] = useState([])
 	useEffect(() => {
 		const fetchAllObjects = async () => {
@@ -36,7 +36,7 @@ const NewObjectForm = () => {
 	const addNewObject = async (e) => {
 		e.preventDefault()
 		var lastId = getLastId(objects) + 1
-		var newObject = { id: lastId, street: object.street, house: object.house, section: object.section, floor: object.floor, apartment: object.apartment, latitude: object.latitude, longitude: object.longitude, category: object.category, pets: object.pets, client_id: object.client_id}
+		var newObject = { id: lastId, street: object.street, house: object.house, section: object.section, floor: object.floor, apartment: object.apartment, latitude: object.latitude, longitude: object.longitude, category: object.category, pets: object.pets, client_id: object.client_id, object_is_active: object.object_is_active}
 		try {
 			const response = await axios.post(BECKEND_URL + "/objects", newObject);
 			if (response.data.errno) {
@@ -57,7 +57,7 @@ const NewObjectForm = () => {
 
 	const resetFields = (e) => {
 		e.preventDefault();
-		setObject({...object, street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: '3', pets: '0'});
+		setObject({...object, street: '', house: '', section: '', floor: '', apartment: '', latitude: '', longitude: '', category: '3', pets: '0', object_is_active: '0'});
 	}
 
 	return (
@@ -176,6 +176,18 @@ const NewObjectForm = () => {
 							{client.id} - {client.surname} {client.name}
 						</option>
           			)}
+				</select>
+			</div>
+			<div>
+				<label htmlFor='object_is_active'>Зробити об'єкт активним?</label>
+				<br />
+				<select onChange={e => setObject({ ...object, object_is_active: e.target.value })} defaultValue={0}>
+					<option value={0}>
+						Ні
+					</option>
+					<option value={1}>
+						Так
+					</option>
 				</select>
 			</div>
 			<div>

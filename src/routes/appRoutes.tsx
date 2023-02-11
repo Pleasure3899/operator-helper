@@ -12,6 +12,7 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import ObjectsPage from "../pages/component/ObjectsPage";
 import PatrolsPage from "../pages/component/PatrolsPage";
 import PatrolmenPage from "../pages/component/PatrolmenPage";
+import ClientsPage from "../pages/component/ClientsPage";
 
 
 const appRoutes: RouteType[] = [
@@ -91,6 +92,14 @@ const appRoutes: RouteType[] = [
                 state: "manage.patrolmen",
                 sidebarProps: {
                     displayText: "Патрульні"
+                }
+            },
+            {
+                path: "/manage/clients",
+                element: <ClientsPage />,
+                state: "manage.clients",
+                sidebarProps: {
+                    displayText: "Клієнти"
                 }
             }
         ]
