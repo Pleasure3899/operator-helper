@@ -1,26 +1,51 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MainLayout from "./components/layout/MainLayout";
 import { routes } from './routes/index';
-import { ObjectsContext } from './context';
+import { IncidentsContext } from './context';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import IncidentsToast from './components/common/IncidentsToast';
+
 
 function App() {
 
-  //const [objects, setObjects] = useState(Objects.objects)
+  const [uncheckedIncidents, setUncheckedIncidents] = useState([])
+
+  useEffect(() => {
+
+    const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
+
+    const fetchAllIncidents = async () => {
+      try {
+        const response = await axios.get(BECKEND_URL + "/unchecked-incidents");
+        setUncheckedIncidents(response.data);
+        console.log(uncheckedIncidents)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const interval = setInterval(() => fetchAllIncidents(), 2000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
-    <ObjectsContext.Provider value={{
-      //objects,
-      //setObjects
+    <IncidentsContext.Provider value={{
+      uncheckedIncidents,
+      setUncheckedIncidents
     }}>
       <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          {routes}
-        </Route>
-      </Routes>
-    </BrowserRouter>
-    </ObjectsContext.Provider>
-    
+        {uncheckedIncidents.length !== 0 && <IncidentsToast />}
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            {routes}
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </IncidentsContext.Provider>
+
   );
 }
 

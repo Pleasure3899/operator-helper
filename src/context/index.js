@@ -1,3 +1,3 @@
 import { createContext } from 'react'
 
-export const ObjectsContext = createContext(null);
+export const IncidentsContext = createContext(null);

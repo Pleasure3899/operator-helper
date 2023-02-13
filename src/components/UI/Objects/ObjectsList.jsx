@@ -4,7 +4,7 @@ import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
 import UpdateObjectForm from './UpdateObjectForm';
 
-const sucessNotify = () => toast.success("Оновлено!");
+const sucessNotify = () => toast.success("Оновлено!", {id: 'updated'});
 const sucessDelete = () => toast.success("Видалено!");
 const errorNotify = (props) => toast.error("Об'єкт не вдалось видалити!\n" + props);
 

@@ -4,7 +4,7 @@ import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
 import UpdatePatrolmanForm from './UpdatePatrolmanForm';
 
-const sucessNotify = () => toast.success("Оновлено!");
+const sucessNotify = () => toast.success("Оновлено!", {id: 'updated'});
 const sucessDelete = () => toast.success("Видалено!");
 const errorNotify = (props) => toast.error("Патрульного не вдалось видалити!\n" + props);
 

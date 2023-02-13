@@ -44,11 +44,11 @@ const appRoutes: RouteType[] = [
                 },
             },
             {
-                path: "/dashboard/analytics",
+                path: "/dashboard/Incidents",
                 element: <AnalyticsPage />,
-                state: "dashboard.analytics",
+                state: "dashboard.incidents",
                 sidebarProps: {
-                    displayText: "Analytic"
+                    displayText: "Інциденти"
                 }
             },
             {

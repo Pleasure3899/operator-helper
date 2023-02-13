@@ -4,9 +4,9 @@ import axios from "axios";
 import toast, { Toaster } from 'react-hot-toast';
 import UpdateClientForm from './UpdateClientForm';
 
-const sucessNotify = () => toast.success("Оновлено!");
-const sucessDelete = () => toast.success("Видалено!");
-const errorNotify = (props) => toast.error("Клієнта не вдалось видалити!\n" + props);
+const sucessNotify = () => toast.success("Оновлено!", {id: 'updated'});
+const sucessDelete = () => toast.success("Видалено!", {id: 'deleted'});
+const errorNotify = (props) => toast.error("Клієнта не вдалось видалити!\n" + props, {id: 'error'});
 
 const ClientsList = () => {
 
