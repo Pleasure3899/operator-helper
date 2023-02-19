@@ -19,7 +19,6 @@ function App() {
       try {
         const response = await axios.get(BECKEND_URL + "/unchecked-incidents");
         setUncheckedIncidents(response.data);
-        console.log(uncheckedIncidents)
       } catch (error) {
         console.log(error);
       }

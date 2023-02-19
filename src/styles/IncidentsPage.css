@@ -1,0 +1,63 @@
+.IncidentsList {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.incident-div {
+    border-style: solid;
+    border-radius: 10px;
+    padding: 10px;
+    height: 250px;
+    border-width: 1px;
+    border-color: #233044;
+    display: flex;
+    flex-direction: row;
+}
+
+.incident-text {
+width: 1000px;
+}
+
+.incident-link {
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+.incident-div:hover {
+    background-color: rgb(230, 230, 230);
+}
+
+#incident-id {
+    margin: 0px;
+    color: black;
+}
+
+#incident-unchecked {
+    margin-bottom: 30px;
+    color: red;
+}
+#incident-checked {
+    margin-bottom: 30px;
+    color: green;
+}
+
+#incident-map {
+    margin: 0px;
+    width: 400px;
+    height: 230px;
+}
+
+#incident-map .leaflet-container {
+    width: 400px;
+    height: 230px;
+  }
+
+.object-info {
+    margin-top: 30px;
+}
+
+.client-info {
+    margin-top: 30px;
+}

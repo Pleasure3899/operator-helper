@@ -3,7 +3,7 @@ import { RouteType } from "./config";
 import MapPage from "../pages/dashboard/MapPage";
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
 import ChangelogPage from "../pages/changelog/ChangelogPage";
-import AnalyticsPage from "../pages/dashboard/AnalyticsPage";
+import IncidentsPage from "../pages/dashboard/IncidentsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ManagePageLayout from "../pages/component/ManagePageLayout";
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
@@ -13,7 +13,7 @@ import ObjectsPage from "../pages/component/ObjectsPage";
 import PatrolsPage from "../pages/component/PatrolsPage";
 import PatrolmenPage from "../pages/component/PatrolmenPage";
 import ClientsPage from "../pages/component/ClientsPage";
-
+import IncidentsItemPage from "../pages/dashboard/IncidentsItemPage";
 
 const appRoutes: RouteType[] = [
     {
@@ -44,12 +44,17 @@ const appRoutes: RouteType[] = [
                 },
             },
             {
-                path: "/dashboard/Incidents",
-                element: <AnalyticsPage />,
+                path: "/dashboard/incidents",
+                element: <IncidentsPage />,
                 state: "dashboard.incidents",
                 sidebarProps: {
                     displayText: "Інциденти"
                 }
+            },
+            {
+                path: "/dashboard/incidents/:id",
+                element: <IncidentsItemPage />,
+                state: "dashboard.incidentsid",
             },
             {
                 path: "/dashboard/saas",

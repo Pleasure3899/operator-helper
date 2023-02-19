@@ -8,6 +8,7 @@ import Routes from "../../storage/Routes.json";
 import { ObjectsContext } from '../../context'; 
 import axios from "axios";
 import { latLng } from 'leaflet';
+import { Toaster } from 'react-hot-toast';
 
 const MapPage = () => {
 
@@ -49,7 +50,7 @@ const MapPage = () => {
 
   return (
     <div className="Map">
-
+      <Toaster ></Toaster>
       <MapContainer dragging={scrollWheelZoom} center={center} zoom={mapZoom} ref={mapRef}>
         <TileLayer
           attribution='Дані карт © АТ «<a href="https://api.visicom.ua/">Visicom</a>»'

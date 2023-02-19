@@ -8,8 +8,8 @@ const colorConfigs = {
         activeBg: "#1e253a"
     },
     topbar: {
-        bg: "#fff",
-        color: "#000"
+        bg: "#677DA2",
+        color: "#eeeeee"
     },
     mainBg: colors.grey["100"]
 };
