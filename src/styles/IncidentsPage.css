@@ -34,12 +34,17 @@ width: 1000px;
     color: black;
 }
 
+#incident-id-title {
+    margin: 0px;
+    color: blue;
+}
+
 #incident-unchecked {
     margin-bottom: 30px;
     color: red;
 }
 #incident-checked {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     color: green;
 }
 
@@ -55,9 +60,27 @@ width: 1000px;
   }
 
 .object-info {
-    margin-top: 30px;
+    margin-top: 25px;
 }
 
 .client-info {
-    margin-top: 30px;
+    margin-top: 25px;
+}
+
+.danger-info {
+    margin-top: 25px;
+}
+
+#danger-info-title {
+    color: blue;
+}
+
+#object-id-title {
+    margin: 0px;
+    color: blue;
+}
+
+#client-id-title {
+    margin: 0px;
+    color: blue;
 }

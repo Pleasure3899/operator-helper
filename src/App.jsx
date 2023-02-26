@@ -24,10 +24,13 @@ function App() {
       }
     };
 
-    const interval = setInterval(() => fetchAllIncidents(), 2000);
-    return () => {
-      clearInterval(interval);
-    };
+    function noDelaySetInterval(func, interval) {
+      func();
+      return setInterval(func, interval);
+    }
+
+    noDelaySetInterval(fetchAllIncidents, 2000);
+
   }, []);
 
   return (
