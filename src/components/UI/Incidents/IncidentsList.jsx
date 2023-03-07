@@ -93,6 +93,7 @@ const IncidentsList = () => {
                 <span id="incident-id-title">Інцидент</span>
                 <span id="incident-id"> | Номер {incident.incidentid} | </span>
                 <span id="incident-datetime">{incident.date} {incident.time} | </span>
+                <span id="incident-zones">Зони {incident.incidentzones} | </span>
                 <span id="incident-iterations">Повторень {incident.incidentiterations} | </span>
                 <span id="incident-category">Категорія {incident.objectcategory}</span>
                 <span id="incident-coordinates"> | Координати ({Number(incident.objectlatitude).toFixed(2)}, {Number(incident.objectlongitude).toFixed(2)})</span>

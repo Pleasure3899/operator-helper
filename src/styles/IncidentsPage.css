@@ -84,3 +84,82 @@ width: 1000px;
     margin: 0px;
     color: blue;
 }
+
+#incident-datetime-title {
+    margin: 0px;
+    color: blue;
+}
+
+#incident-zones-title {
+    margin: 0px;
+    color: blue;
+}
+
+#incident-iterations-title {
+    margin: 0px;
+    color: blue;
+}
+
+#incident-category-title {
+    margin: 0px;
+    color: blue;
+}
+
+#incident-coordinates-title {
+    margin: 0px;
+    color: blue;
+}
+
+#object-address-title {
+    margin: 0px;
+    color: blue;
+}
+
+#client-name-title {
+    margin: 0px;
+    color: blue;
+}
+
+#client-address-title {
+    margin: 0px;
+    color: blue;
+}
+
+#client-phone-title {
+    margin: 0px;
+    color: blue;
+}
+
+#client-alternatephone-title {
+    margin: 0px;
+    color: blue;
+}
+#incident-danger-title {
+    margin: 0px;
+    color: blue;
+}
+
+.incident-item-info {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.incident-item-info div {
+    padding: 10px;
+    width: calc((100vw - 300px)/3);
+}
+
+.object-item-div {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.incident-item-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.incident-actions-div {
+    border-top: 1px solid #233044;
+}

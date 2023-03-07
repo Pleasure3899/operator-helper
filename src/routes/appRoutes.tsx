@@ -60,9 +60,7 @@ const appRoutes: RouteType[] = [
                 path: "/dashboard/saas",
                 element: <SaasPage />,
                 state: "dashboard.saas",
-                sidebarProps: {
-                    displayText: "Saas"
-                }
+                
             }
         ]
     },
