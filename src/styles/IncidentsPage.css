@@ -160,6 +160,30 @@ width: 1000px;
     flex-direction: column;
 }
 
-.incident-actions-div {
+.incident-item-map {
+    margin-top:10px;
+    width: calc(100vw - 300px);
+    height: 60vh;
+}
+
+.incident-item-map .leaflet-container {
+    width: calc(100vw - 300px);
+    height: 60vh;
+  }
+
+.incident-item-actions {
+    display:flex;
+    flex-direction: row;
     border-top: 1px solid #233044;
+}
+
+.incident-actions-div {
+    width: calc((100vw - 300px)/2);
+    margin: 20px;
+    border-right: 1px solid #233044;
+}
+
+.ahp-div {
+    width: calc((100vw - 300px)/2);
+    margin: 20px; 
 }
