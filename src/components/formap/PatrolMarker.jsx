@@ -9,7 +9,7 @@ const PatrolMarker = (props) => {
 
     return (
         <CircleMarker center={latLng(props.patrol.latitude, props.patrol.longitude)} radius={markerRadius} color={markerColor}>
-          <Popup>PatrolID - {props.patrol.id}</Popup>
+          <Popup>Бригада {props.patrol.id}</Popup>
         </CircleMarker>
     );
 };

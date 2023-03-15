@@ -12,7 +12,7 @@ const NewPatrolForm = () => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 	const [patrols, setPatrols] = useState([])
-	const [patrol, setPatrol] = useState({ first_patrolman_id: '', second_patrolman_id: '', latitude: '', longitude: '', patrol_is_active: '0' })
+	const [patrol, setPatrol] = useState({ first_patrolman_id: '', second_patrolman_id: '', latitude: '', longitude: '', patrol_is_active: '0', probability: '' })
 	const [patrolmen, setPatrolmen] = useState([])
 	useEffect(() => {
 		const fetchAllPatrols = async () => {
@@ -36,10 +36,13 @@ const NewPatrolForm = () => {
 	const addNewPatrol = async (e) => {
 		e.preventDefault()
 		var lastId = getLastId(patrols) + 1
-		var newPatrol = { id: lastId, first_patrolman_id: patrol.first_patrolman_id, second_patrolman_id: patrol.second_patrolman_id, latitude: patrol.latitude, longitude: patrol.longitude, patrol_is_active: patrol.patrol_is_active }
+		var newPatrol = { id: lastId, first_patrolman_id: patrol.first_patrolman_id, second_patrolman_id: patrol.second_patrolman_id, latitude: patrol.latitude, longitude: patrol.longitude, patrol_is_active: patrol.patrol_is_active, probability: patrol.probability }
 		try {
 			if (patrol.first_patrolman_id === patrol.second_patrolman_id) {
 				throw new Error('Оберіть різних патральних!');
+			}
+			if ((Number(patrol.probability) <= 0) || (Number(patrol.probability) > 100)) {
+				throw new Error('Ймовірність може бути від 1 до 100');
 			}
 			const response = await axios.post(BECKEND_URL + "/patrols", newPatrol);
 			if (response.data.errno) {
@@ -113,6 +116,19 @@ const NewPatrolForm = () => {
 						placeholder='Вкажіть довготу'
 						value={patrol.longitude}
 						onChange={e => setPatrol({ ...patrol, longitude: e.target.value })}
+					/>
+				</div>
+				<div>
+					<label htmlFor='probability'>Ймовірність правильного і своєчасного виконання операції:</label>
+					<br />
+					<input
+						name='probability'
+						type="number"
+						min="1" 
+						max="100"
+						placeholder='Вкажіть ймовірність'
+						value={patrol.probability}
+						onChange={e => setPatrol({ ...patrol, probability: Number(e.target.value) })}
 					/>
 				</div>
 				<div>

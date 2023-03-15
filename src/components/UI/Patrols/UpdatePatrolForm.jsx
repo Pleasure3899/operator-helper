@@ -11,7 +11,7 @@ const UpdatePatrolForm = (props) => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 
-	const [patrol, setPatrol] = useState({ id: '', first_patrolman_id: '', second_patrolman_id: '', latitude: '', longitude: '', patrol_is_active: ''})
+	const [patrol, setPatrol] = useState({ id: '', first_patrolman_id: '', second_patrolman_id: '', latitude: '', longitude: '', patrol_is_active: '', probability: ''})
 	const [patrolmen, setPatrolmen] = useState([])
 
 	useEffect(() => {
@@ -109,6 +109,19 @@ const UpdatePatrolForm = (props) => {
 						value={patrol.longitude}
 						placeholder='Вкажіть довготу'
 						onChange={e => setPatrol({ ...patrol, longitude: e.target.value })}
+					/>
+				</div>
+				<div>
+					<label htmlFor='probability'>Ймовірність:</label>
+					<br />
+					<input
+						name='probability'
+						type='number'
+						min='1'
+						max='100'
+						value={patrol.probability}
+						placeholder='Вкажіть ймовірність'
+						onChange={e => setPatrol({ ...patrol, probability: e.target.value })}
 					/>
 				</div>
 				<div>

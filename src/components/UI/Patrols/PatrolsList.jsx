@@ -91,6 +91,7 @@ const PatrolsList = () => {
                         <th>Другий патрульний</th>
                         <th>Широта</th>
                         <th>Довгота</th>
+                        <th>Ймовірність</th>
                         <th>Активна</th>
                         <th>Дії</th>
                     </tr>
@@ -101,6 +102,7 @@ const PatrolsList = () => {
                             <td>{patrolmen.map(patrolmen => patrol.second_patrolman_id === patrolmen.id ? `${patrolmen.id} - ${patrolmen.full_name}` : '' ) }</td>
                             <td>{patrol.latitude}</td>
                             <td>{patrol.longitude}</td>
+                            <td>{patrol.probability}</td>
                             <td>{patrol.patrol_is_active ? 'Так' : 'Ні'}</td>
                             <td>
                                 <button className="update-patrol" onClick={() => handleUpdateOpen(patrol)}>Редагувати</button>

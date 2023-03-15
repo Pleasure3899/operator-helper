@@ -73,7 +73,7 @@ const MapPage = () => {
         object.object_is_active !== 0 &&
           <Marker key={object.id} position={latLng(object.latitude, object.longitude)}>
             <Popup>
-              ObjectID - {object.id}
+              Об'єкт {object.id}
             </Popup>
           </Marker>
         )}

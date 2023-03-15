@@ -146,7 +146,6 @@ width: 1000px;
 }
 
 .incident-item-info div {
-    padding: 10px;
     width: calc((100vw - 300px)/3);
 }
 
@@ -179,11 +178,16 @@ width: 1000px;
 
 .incident-actions-div {
     width: calc((100vw - 300px)/2);
-    margin: 20px;
+    margin: 10px;
     border-right: 1px solid #233044;
 }
 
 .ahp-div {
     width: calc((100vw - 300px)/2);
-    margin: 20px; 
+    margin: 10px; 
+}
+
+.title-span {
+    margin: 0px;
+    color: blue;
 }
