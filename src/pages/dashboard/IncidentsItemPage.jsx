@@ -94,9 +94,6 @@ const IncidentsItemPage = () => {
     };
 
 
-
-
-
     const setNewStatus = (e) => {
         e.preventDefault();
 
@@ -176,7 +173,7 @@ const IncidentsItemPage = () => {
             outputAHP = ahpContext.run();
 
             for (i = 0; i < outputAHP.rankedScores.length; i++) {
-                var newScore = { patrolid: routes[i].patrolid, score: outputAHP.rankedScores[i].toFixed(5), distance: routes[i].distance, probability: routes[i].probability }
+                var newScore = { patrolid: routes[i].patrolid, score: outputAHP.rankedScores[i].toFixed(5), distance: routes[i].distance, probability: routes[i].probability, time: Number(routes[i].distance/22).toFixed() }
                 ahpResultArray.push(newScore)
             }
 
@@ -197,7 +194,6 @@ const IncidentsItemPage = () => {
     }
 
     
-
     const calculateClick = (e) => {
         e.preventDefault();
 
@@ -372,8 +368,10 @@ const IncidentsItemPage = () => {
                             <span>{result.score}, </span>
                             <span className='title-span'>Відстань: </span>
                             <span>{result.distance}м, </span>
+                            <span className='title-span'>Час: </span>
+                            <span>{result.time}с, </span>
                             <span className='title-span'>Ймовірність: </span>
-                            <span>{result.probability}</span><br></br>
+                            <span>{result.probability}%</span><br></br>
                         </div>
 
                     )}

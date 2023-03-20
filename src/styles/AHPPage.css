@@ -1,0 +1,34 @@
+  #time-rank {
+    margin-top:30px;
+  }
+
+  .ahp-div {
+    white-space: pre;
+    margin: 0;
+    padding:0;
+  }
+
+  #mai-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  #title-span {
+    margin-top: 10px;
+    align-self: center;
+  }
+
+  #select-object {
+    align-self: center;
+  }
+
+  #btn-calculate {
+    margin-top: 10px;
+    align-self: center;
+  }
+
+  #pre-output {
+    margin-top: 10px;
+    align-self: center;
+  }

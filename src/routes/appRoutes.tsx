@@ -2,7 +2,7 @@ import DashboardPageLayout from "../pages/dashboard/DashboardPageLayout";
 import { RouteType } from "./config";
 import MapPage from "../pages/dashboard/MapPage";
 import DashboardIndex from "../pages/dashboard/DashboardIndex";
-import ChangelogPage from "../pages/changelog/ChangelogPage";
+import Ahp from "../pages/ahp/Ahp";
 import IncidentsPage from "../pages/dashboard/IncidentsPage";
 import SaasPage from "../pages/dashboard/SaasPage";
 import ManagePageLayout from "../pages/component/ManagePageLayout";
@@ -108,11 +108,11 @@ const appRoutes: RouteType[] = [
         ]
     },
     {
-        path: "/changelog",
-        element: <ChangelogPage />,
-        state: "changelog",
+        path: "/ahp",
+        element: <Ahp />,
+        state: "ahp",
         sidebarProps: {
-            displayText: "Changelog",
+            displayText: "МАІ",
             icon: <FormatListBulletedOutlinedIcon />
         }
     }
