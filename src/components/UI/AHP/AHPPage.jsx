@@ -3,9 +3,50 @@ import axios from "axios";
 import AHP from 'ahp';
 import toast, { Toaster } from 'react-hot-toast';
 import '../../../styles/AHPPage.css'
-
+import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
+import { Bar } from 'react-chartjs-2'
 
 const AHPPage = () => {
+
+  Chart.register(
+    BarElement, 
+    CategoryScale, 
+    LinearScale, 
+    Tooltip, 
+    Legend,
+  )
+
+  const options = {
+    plugins: {
+    legend: {
+      position: 'top',
+      labels: {
+          color: "black",
+      }
+  },
+  tooltip: {
+    backgroundColor: 'black',
+  }
+},
+    scales: {
+      y: {
+        max:1,
+        min:0,
+        ticks: {
+          min: 0,
+          beginAtZero: true,
+          color: "black",
+          stepSize: .05
+      },
+      },
+      x: {
+        ticks: {
+          color: "black",
+      },
+      }
+
+  }
+  }
 
   const errorCritariaInput = () => toast.error("Помилка. Введіть одну цифру від 2 до 6");
 
@@ -14,16 +55,35 @@ const AHPPage = () => {
   const [patrols, setPatrols] = useState([])
   const [outputAHP, setOutputAHP] = useState([])
   const [objects, setObjects] = useState([])
+  const [labelsTitle, setLabelsTitle] = useState([])
+  const [dataLabels, setDataLabels] = useState([])
+
+
+  const data = {
+    labels: labelsTitle,
+    datasets: [
+      {
+        data: dataLabels,
+        label: "Пріоритетність (вище - краще)",
+        backgroundColor: '#7826ff',
+        hoverBackgroundColor: '#45487d',
+      }
+    ]
+  }
+
 
   const calculateClick = () => {
     calculateAHP()
   }
 
   const calculateAHP = () => {
+    Object.assign(data, {labels: ["3", "4"]});
 
     for (var i = 0; i < patrols.length; i++) {
       ahpContext.addItem("Патруль " + patrols[i].id);
     }
+
+    setLabelsTitle(ahpContext.items)
 
     var criteriaCount = prompt("Введіть кількість критеріїв (від 2 до 6)");
 
@@ -108,6 +168,9 @@ const AHPPage = () => {
       }
 
       let output = ahpContext.debug();
+
+      setDataLabels(output.rankedScores)
+
       setOutputAHP(output)
 
     } else {
@@ -157,6 +220,8 @@ const AHPPage = () => {
       </select><br></br>
 
       <button id="btn-calculate" onClick={calculateClick}>Розрахувати</button>
+
+      {outputAHP.length !== 0 && <div id="chart-div"><Bar data={data} options={options}></Bar></div>}
 
       {outputAHP.length !== 0 && <pre id="pre-output">{outputAHP.log}</pre>}
 

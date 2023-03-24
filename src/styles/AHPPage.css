@@ -32,3 +32,11 @@
     margin-top: 10px;
     align-self: center;
   }
+
+  #chart-div {
+    width: 800px;
+    height: 400px;
+    align-self: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
