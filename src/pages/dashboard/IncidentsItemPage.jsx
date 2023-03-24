@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-//import IncidentsItemPage from '../../components/UI/Incidents/IncidentsList';
+import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { useRef } from 'react';
@@ -9,6 +9,8 @@ import PatrolMarker from '../../components/formap/PatrolMarker';
 import toast, { Toaster } from 'react-hot-toast';
 
 const IncidentsItemPage = () => {
+
+    let navigate = useNavigate();
 
     const errorAhpInput = () => toast.error("Помилка. Введіть від 1 до 9, або дробом в форматі 1/[1-9]");
     const sucessNotify = () => toast.success("Оновлено!");
@@ -29,8 +31,14 @@ const IncidentsItemPage = () => {
     const [statuses, setStatuses] = useState([])
     const [status, setStatus] = useState([])
     const [ahpResult, setAhpResult] = useState([])
+    const [timeResult, setTimeResult] = useState([])
+    const [probabilityResult, setProbabilityResult] = useState([])
     const ahpResultArray = [];
-    const [disabled, setDisabled] = useState(false);
+    const timeResultArray = [];
+    const probabilityResultArray = [];
+    const [ahpClicked, setAhpClicked] = useState(false);
+    const [timeClicked, setTimeClicked] = useState(false);
+    const [probabilityClicked, setProbabilityClicked] = useState(false);
     var newOperation;
     var newTimestamp;
 
@@ -60,37 +68,37 @@ const IncidentsItemPage = () => {
 
     const fetchLastTimestamp = async () => {
         try {
-        const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
-        const response = await axios.get(BECKEND_URL + "/timestamps-lastid");
-        newTimestamp = response.data[0].id + 1;
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
+            const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
+            const response = await axios.get(BECKEND_URL + "/timestamps-lastid");
+            newTimestamp = response.data[0].id + 1;
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const addNewTimestamp = async () => {
         try {
-        const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
-        const response = await axios.post(BECKEND_URL + "/timestamps", {id: newTimestamp});
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
+            const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
+            const response = await axios.post(BECKEND_URL + "/timestamps", { id: newTimestamp });
+            return response.data;
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const setOperation = async () => {
         try {
-        const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
-            var newOperationObject = { id: newOperation, incident_id: incident.incidentid, patrol_id: patrol.id, status_id: status.id, timestamp_id: newTimestamp}
+            const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
+            var newOperationObject = { id: newOperation, incident_id: incident.incidentid, patrol_id: patrol.id, status_id: status.id, timestamp_id: newTimestamp }
             const response = await axios.post(BECKEND_URL + "/operations", newOperationObject);
             sucessNotify();
             fetchOperation();
             return response.data;
-    } catch (error) {
-        console.log(error);
-    }
- 
+        } catch (error) {
+            console.log(error);
+        }
+
     };
 
 
@@ -98,9 +106,9 @@ const IncidentsItemPage = () => {
         e.preventDefault();
 
         fetchLastOperation()
-        .then((data) => fetchLastTimestamp())
-        .then((data) => addNewTimestamp())
-        .then((data) => setOperation());
+            .then((data) => fetchLastTimestamp())
+            .then((data) => addNewTimestamp())
+            .then((data) => setOperation());
     }
 
     const calculateAHP = (routes) => {
@@ -120,8 +128,6 @@ const IncidentsItemPage = () => {
         }
 
         if (isValid) {
-
-            setDisabled(true)
 
             for (var i = 0; i < routes.length; i++) {
                 ahpContext.addItem("PatrolID " + routes[i].patrolid);
@@ -173,7 +179,7 @@ const IncidentsItemPage = () => {
             outputAHP = ahpContext.run();
 
             for (i = 0; i < outputAHP.rankedScores.length; i++) {
-                var newScore = { patrolid: routes[i].patrolid, score: outputAHP.rankedScores[i].toFixed(5), distance: routes[i].distance, probability: routes[i].probability, time: Number(routes[i].distance/22).toFixed() }
+                var newScore = { patrolid: routes[i].patrolid, score: outputAHP.rankedScores[i].toFixed(5), distance: routes[i].distance, probability: routes[i].probability, time: Number(routes[i].distance / 22).toFixed() }
                 ahpResultArray.push(newScore)
             }
 
@@ -188,16 +194,88 @@ const IncidentsItemPage = () => {
             });
 
             setAhpResult(ahpResultArray)
+
+            setTimeClicked(false)
+            setProbabilityClicked(false)
+
+            setAhpClicked(true);
         } else {
             errorAhpInput();
         }
     }
 
-    
+
     const calculateClick = (e) => {
         e.preventDefault();
 
         calculateAHP(routes)
+    }
+
+    const timeClick = (e) => {
+        e.preventDefault();
+
+        calculateByTime(routes)
+    }
+
+    const universalClick = (e) => {
+        e.preventDefault();
+
+        let path = `/ahp`; 
+        navigate(path);
+    }
+
+    const calculateByTime = (routes) => {
+
+        for (var i = 0; i < routes.length; i++) {
+            var newScore = { patrolid: routes[i].patrolid, distance: routes[i].distance, probability: routes[i].probability, time: Number(routes[i].distance / 22).toFixed() }
+            timeResultArray.push(newScore)
+        }
+
+        timeResultArray.sort(function (a, b) {
+            if (a.distance > b.distance) {
+                return 1;
+            }
+            if (a.distance < b.distance) {
+                return -1;
+            }
+            return 0;
+        });
+
+        setTimeResult(timeResultArray)
+
+        setProbabilityClicked(false)
+        setAhpClicked(false);
+        setTimeClicked(true)
+    }
+
+    const probabilityClick = (e) => {
+        e.preventDefault();
+
+        calculateByProbability(routes)
+    }
+
+    const calculateByProbability = (routes) => {
+
+        for (var i = 0; i < routes.length; i++) {
+            var newScore = { patrolid: routes[i].patrolid, distance: routes[i].distance, probability: routes[i].probability, time: Number(routes[i].distance / 22).toFixed() }
+            probabilityResultArray.push(newScore)
+        }
+
+        probabilityResultArray.sort(function (a, b) {
+            if (a.probability < b.probability) {
+                return 1;
+            }
+            if (a.probability > b.probability) {
+                return -1;
+            }
+            return 0;
+        });
+
+        setProbabilityResult(probabilityResultArray)
+
+        setAhpClicked(false)
+        setTimeClicked(false)
+        setProbabilityClicked(true)
     }
 
     useEffect(() => {
@@ -206,7 +284,7 @@ const IncidentsItemPage = () => {
             try {
                 const API_KEY = process.env.REACT_APP_VISICOM_API_KEY;
                 const destination = [incident.objectlongitude, incident.objectlatitude]
-    
+
                 patrols.map(async patrol => {
                     const origin = [patrol.longitude, patrol.latitude]
                     const response = await axios.get("https://api.visicom.ua/data-api/5.0/core/distance.json?origin=" + origin + "&destination=" + destination + "&geometry=path&mode=driving-shortest&key=" + API_KEY);
@@ -214,7 +292,7 @@ const IncidentsItemPage = () => {
                     setRoutes(r => [...r, newRoute])
                     console.log(newRoute)
                 })
-    
+
             } catch (error) {
                 console.log(error);
             }
@@ -359,22 +437,67 @@ const IncidentsItemPage = () => {
                     </form>
                 </div>}
                 <div className="ahp-div">
-                    <button disabled={disabled} onClick={calculateClick}>Обрати патруль методом аналізу ієрархій</button><br></br>
-                    {ahpResult.map(result =>
-                        <div key={result.patrolid}>
-                            <span className='title-span'>Бригада: </span>
-                            <span>{result.patrolid}, </span>
-                            <span className='title-span'>Результат: </span>
-                            <span>{result.score}, </span>
-                            <span className='title-span'>Відстань: </span>
-                            <span>{result.distance}м, </span>
-                            <span className='title-span'>Час: </span>
-                            <span>{result.time}с, </span>
-                            <span className='title-span'>Ймовірність: </span>
-                            <span>{result.probability}%</span><br></br>
-                        </div>
+                    <button onClick={timeClick}>Обрати найближчий патруль</button><br></br>
+                    <button onClick={probabilityClick}>Обрати патруль з кращим показником ймовірності своєчасного та правильного виконання</button><br></br>
+                    <button onClick={calculateClick}>Обрати оптимальний патруль враховуючи обидва критерії</button><br></br>
+                    <button onClick={universalClick}>Обрати оптимальний патруль за довільними критеріями</button><br></br>
 
+                    {ahpResult.map(result => {
+                        if (ahpClicked) {
+                            return <div key={result.patrolid}>
+                                <span className='title-span'>Бригада: </span>
+                                <span>{result.patrolid}, </span>
+                                <span className='title-span'>Результат: </span>
+                                <span>{result.score}, </span>
+                                <span className='title-span'>Відстань: </span>
+                                <span>{result.distance}м, </span>
+                                <span className='title-span'>Час: </span>
+                                <span>{result.time}с, </span>
+                                <span className='title-span'>Ймовірність: </span>
+                                <span>{result.probability}%</span><br></br>
+                            </div>
+                        } else {
+                            return <span key={result.patrolid}></span>
+                        }
+                    }
                     )}
+
+                    {timeResult.map(result => {
+                        if (timeClicked) {
+                            return <div key={result.patrolid}>
+                                <span className='title-span'>Бригада: </span>
+                                <span>{result.patrolid}, </span>
+                                <span className='title-span'>Час: </span>
+                                <span>{result.time}с, </span>
+                                <span className='title-span'>Відстань: </span>
+                                <span>{result.distance}м, </span>
+                                <span className='title-span'>Ймовірність: </span>
+                                <span>{result.probability}%</span><br></br>
+                            </div>
+                        } else {
+                            return <span key={result.patrolid}></span>
+                        }
+                    }
+                    )}
+
+                    {probabilityResult.map(result => {
+                        if (probabilityClicked) {
+                            return <div key={result.patrolid}>
+                                <span className='title-span'>Бригада: </span>
+                                <span>{result.patrolid}, </span>
+                                <span className='title-span'>Ймовірність: </span>
+                                <span>{result.probability}%, </span>
+                                <span className='title-span'>Час: </span>
+                                <span>{result.time}с, </span>
+                                <span className='title-span'>Відстань: </span>
+                                <span>{result.distance}м </span><br></br>
+                            </div>
+                        } else {
+                            return <span key={result.patrolid}></span>
+                        }
+                    }
+                    )}
+
                 </div>
             </div>
             <div className='incident-item-map'>
