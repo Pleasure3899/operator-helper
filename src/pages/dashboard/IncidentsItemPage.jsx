@@ -287,8 +287,21 @@ const IncidentsItemPage = () => {
 
                 patrols.map(async patrol => {
                     const origin = [patrol.longitude, patrol.latitude]
+                    var probability;
                     const response = await axios.get("https://api.visicom.ua/data-api/5.0/core/distance.json?origin=" + origin + "&destination=" + destination + "&geometry=path&mode=driving-shortest&key=" + API_KEY);
-                    const newRoute = { patrolid: patrol.id, response: response.data, distance: response.data.properties.distance, probability: patrol.patrolprobability }
+                    if (incident.incidentdanger === "Наднизький") {
+                        probability = patrol.patrolprobabilitysuperlow;
+                    }
+                    if (incident.incidentdanger === "Низький") {
+                        probability = patrol.patrolprobabilitylow;
+                    }
+                    if (incident.incidentdanger === "Середній") {
+                        probability = patrol.patrolprobabilitymedium;
+                    }
+                    if (incident.incidentdanger === "Високий") {
+                        probability = patrol.patrolprobabilityhigh;
+                    }
+                    const newRoute = { patrolid: patrol.id, response: response.data, distance: response.data.properties.distance, probability: probability, danger: incident.incidentdanger }
                     setRoutes(r => [...r, newRoute])
                     console.log(newRoute)
                 })
@@ -306,17 +319,14 @@ const IncidentsItemPage = () => {
                 console.log(error);
             }
         }
-        const fetchIncident = async (e) => {
+        const fetchIncident = async () => {
             const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
-            try {
                 const response = await axios.get(BECKEND_URL + "/incidents/" + params.id);
                 setIncidents(response.data[0])
                 if (incident.incidentchecked === 0) {
                     updateCheckSwitch(incident.incidentid)
                 }
-            } catch (error) {
-                console.log(error);
-            }
+                return response.data;
         }
 
         const fetchAllPatrols = async () => {
@@ -349,11 +359,13 @@ const IncidentsItemPage = () => {
         };
 
         fetchAllPatrols()
-            .then((data) => { fetchRoutes() });
+            .then((data) => fetchIncident())
+            .then((data) => fetchRoutes());
+
         fetchOperation();
-        fetchIncident();
+
         fetchAllStatuses();
-    }, [params.id, incident.incidentchecked, incident.incidentid, incident.objectlatitude, incident.objectlongitude]);
+    }, [params.id, incident.incidentchecked, incident.incidentid, incident.objectlatitude, incident.objectlongitude, incident.danger]);
 
 
     return (

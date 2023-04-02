@@ -17,6 +17,7 @@
   #objectstable td, #objectstable th {
     border: 1px solid #ddd;
     padding: 8px;
+    text-align: center
   }
   
   #objectstable tr:nth-child(even){background-color: #f2f2f2;}

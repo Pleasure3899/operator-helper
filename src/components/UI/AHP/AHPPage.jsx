@@ -6,6 +6,9 @@ import '../../../styles/AHPPage.css'
 import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
 
+import GLPK from 'glpk.js';
+
+
 const AHPPage = () => {
 
   Chart.register(
@@ -172,6 +175,60 @@ const AHPPage = () => {
       setDataLabels(output.rankedScores)
 
       setOutputAHP(output)
+
+
+      GLPK().then((data) => {
+
+        const options = {
+          msglev: data.GLP_MSG_ALL,
+          presol: true,
+          cb: {
+              call: progress => console.log(progress),
+              each: 1
+          }
+      };
+
+      const res = data.solve({
+        name: 'LP',
+        objective: {
+            direction: data.GLP_MAX,
+            name: 'obj',
+            vars: [
+                { name: 'x1', coef: 3 },
+                { name: 'x2', coef: 1 }
+            ]
+        },
+        subjectTo: [
+            {
+                name: 'cons1',
+                vars: [
+                    { name: 'x1', coef: 1 },
+                    { name: 'x2', coef: 1 }
+                ],
+                bnds: { type: data.GLP_UP, ub: 10}
+            },
+            {
+                name: 'cons2',
+                vars: [
+                    { name: 'x1', coef: 1 },
+                    { name: 'x2', coef: 0 }
+                ],
+                bnds: { type: data.GLP_UP, ub: 1}
+            }
+        ]
+    }, options);
+
+    console.log(res)
+
+    
+
+      }) 
+
+     
+
+
+
+      
 
     } else {
 

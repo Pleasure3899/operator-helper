@@ -52,7 +52,7 @@ const NewObjectForm = () => {
 	}
 
 	const setCoordinates = (e) => {
-		setObject(object => ({ ...object, latitude: e.latlng.lat, longitude: e.latlng.lng }));
+		setObject(object => ({ ...object, latitude: Number(e.latlng.lat).toFixed(5), longitude: Number(e.latlng.lng).toFixed(5) }));
 	}
 
 	const resetFields = (e) => {

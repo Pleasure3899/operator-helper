@@ -11,7 +11,7 @@ const UpdatePatrolForm = (props) => {
 
 	const BECKEND_URL = process.env.REACT_APP_BECKEND_URL;
 
-	const [patrol, setPatrol] = useState({ id: '', first_patrolman_id: '', second_patrolman_id: '', latitude: '', longitude: '', patrol_is_active: '', probability: ''})
+	const [patrol, setPatrol] = useState({ id: '', first_patrolman_id: '', second_patrolman_id: '', latitude: '', longitude: '', patrol_is_active: '', probability_superlow: '', probability_low: '', probability_medium: '', probability_high: ''})
 	const [patrolmen, setPatrolmen] = useState([])
 
 	useEffect(() => {
@@ -112,16 +112,55 @@ const UpdatePatrolForm = (props) => {
 					/>
 				</div>
 				<div>
-					<label htmlFor='probability'>Ймовірність:</label>
+					<label htmlFor='probability_superlow'>Ймовірність для наднизького рівня загрози:</label>
 					<br />
 					<input
-						name='probability'
+						name='probability_superlow'
 						type='number'
 						min='1'
 						max='100'
-						value={patrol.probability}
+						value={patrol.probability_superlow}
 						placeholder='Вкажіть ймовірність'
-						onChange={e => setPatrol({ ...patrol, probability: e.target.value })}
+						onChange={e => setPatrol({ ...patrol, probability_superlow: e.target.value })}
+					/>
+				</div>
+				<div>
+					<label htmlFor='probability_low'>Ймовірність для низького рівня загрози:</label>
+					<br />
+					<input
+						name='probability_low'
+						type='number'
+						min='1'
+						max='100'
+						value={patrol.probability_low}
+						placeholder='Вкажіть ймовірність'
+						onChange={e => setPatrol({ ...patrol, probability_low: e.target.value })}
+					/>
+				</div>
+				<div>
+					<label htmlFor='probability_medium'>Ймовірність для середнього рівня загрози:</label>
+					<br />
+					<input
+						name='probability_medium'
+						type='number'
+						min='1'
+						max='100'
+						value={patrol.probability_medium}
+						placeholder='Вкажіть ймовірність'
+						onChange={e => setPatrol({ ...patrol, probability_medium: e.target.value })}
+					/>
+				</div>
+				<div>
+					<label htmlFor='probability_high'>Ймовірність для високого рівня загрози:</label>
+					<br />
+					<input
+						name='probability_high'
+						type='number'
+						min='1'
+						max='100'
+						value={patrol.probability_high}
+						placeholder='Вкажіть ймовірність'
+						onChange={e => setPatrol({ ...patrol, probability_high: e.target.value })}
 					/>
 				</div>
 				<div>
